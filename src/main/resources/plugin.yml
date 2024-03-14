@@ -1,0 +1,15 @@
+name: BookAndStorage
+version: '${project.version}'
+main: com.sunrisenw.bookandstorage.BookAndStorage
+api-version: '1.14'
+commands:
+  createdata:
+    permission: bookstorage.createdata
+    permission-message: "You don't have permission to execute this command!"
+    default: op
+    description: "Create data of a file in the /plugins/BookStorage/data/ folder and receive it as book(s)!"
+  writedata:
+    permission: bookstorage.writedata
+    permission-message: "You don't have permission to execute this command!"
+    default: op
+    description: "Convert the hexadecimal string data in your book to actual file!"
