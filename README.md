@@ -11,7 +11,7 @@ Currently there aren't any known issues.
 
 ## Features
 - **Data Storage**: Store various types of data in books, such as text, images, small videos, even more!
-- **Ease of Use**: You can easily create books with one command or write a content of a book to an actual file!
+- **Ease of Use**: You can easily create books with one command or write the content of a book to an actual file!
 - **Compatibility**: Compatible with Minecraft version 1.14+ due to increased page sizes of the books.
 > [!NOTE]
 > If you want to build the plugin for versions below 1.14, see the [Building for Versions Below 1.14](#building-for-versions-below-114) section below.
