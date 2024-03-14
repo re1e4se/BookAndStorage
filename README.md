@@ -23,6 +23,9 @@ Aren't you tired of using Book and Quills for just storing simple things like so
 - You can only store up to 8 KB files.
 - You can't split files into chunks of books.
 
+## Getting Started
+To get started with the plugin, simply install it to your server by downloading the plugin from releases tab. You don't need to install any dependency to run the plugin.
+
 ## Building for Versions Below 1.14
 Do you need to run the plugin on versions below 1.14? No worries, you can still do that. Since I've started developing the plugin for 1.12 and switched to 1.14 because of increased book page limit, the plugin is fully compatible with 1.12.
 
