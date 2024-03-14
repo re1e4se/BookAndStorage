@@ -53,7 +53,7 @@ public class CreateDataCommand implements CommandExecutor {
 
             BookMeta meta = (BookMeta)book.getItemMeta();
             meta.setTitle(args[0]);
-            meta.setAuthor("BookStorage");
+            meta.setAuthor("BookAndStorage");
             for (String chunk : chunks){
                 meta.addPage(chunk);
             }
