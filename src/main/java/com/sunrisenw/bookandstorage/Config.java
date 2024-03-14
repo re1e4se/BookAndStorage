@@ -12,10 +12,11 @@ public class Config {
     private static File file;
     private static FileConfiguration configFile;
     private static File filesDirectory;
+    private static final String pluginName = "BookAndStorage";
 
     public static void setup(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("BookAndStorage").getDataFolder(), "config.yml");
-        filesDirectory = new File(Bukkit.getServer().getPluginManager().getPlugin("BookAndStorage").getDataFolder(), "/data");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin(pluginName).getDataFolder(), "config.yml");
+        filesDirectory = new File(Bukkit.getServer().getPluginManager().getPlugin(pluginName).getDataFolder(), "/data");
 
         filesDirectory.mkdirs();
         if (!file.exists()){
@@ -47,5 +48,13 @@ public class Config {
 
     public static void reload(){
         configFile = YamlConfiguration.loadConfiguration(file);
+    }
+
+    public static String getPluginName(){
+        return pluginName;
+    }
+
+    public static String getPluginDataPath(){
+        return filesDirectory.getAbsolutePath().replace("\\", "/");
     }
 }

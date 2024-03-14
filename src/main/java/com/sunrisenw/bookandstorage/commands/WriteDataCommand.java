@@ -46,6 +46,13 @@ public class WriteDataCommand implements CommandExecutor {
 
             data = stringBuilder.toString();
             File file = Config.getFileInData(args[0]);
+            String filePath = file.getPath();
+            String absolutePath = file.getAbsolutePath().replace("\\", "/");
+            if (!absolutePath.contains(Config.getPluginDataPath())){
+                player.sendMessage("§cYou can't access files outside of data folder!");
+                System.out.println("[BookAndStorage] Player " + player.getName() + " tried to access files outside of data folder!");
+                return true;
+            }
             if (!file.exists()){
                 try{
                     file.createNewFile();
@@ -57,7 +64,7 @@ public class WriteDataCommand implements CommandExecutor {
 
             String actualString = new String(HexDecoder.decode(data));
 
-            try(PrintWriter writer = new PrintWriter(file.getPath())){
+            try(PrintWriter writer = new PrintWriter(filePath)){
                 writer.println(actualString);
             }
             catch (IOException e){

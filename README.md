@@ -7,9 +7,7 @@ BookAndStorage is a Spigot Plugin that I made for fun that lets you store data i
 Aren't you tired of using Book and Quills for just storing simple things like some text of what you did in your world? If your answer is yes, then BookAndStorage changes that! You can store everything that comes to your mind in books!
 
 ## Known Issues
-- Players can read any file that the plugin can read and write to a book by simply making a path traversal attack. This will be fixed soon.
-> [!NOTE]
-> Until this issue is fixed, avoid giving everyone permission to use the commands that the plugin supplies.
+Currently there aren't any known issues.
 
 ## Features
 - **Data Storage**: Store various types of data in books, such as text, images, small videos, even more!

@@ -26,8 +26,14 @@ public class CreateDataCommand implements CommandExecutor {
             return true;
         }
         File file = Config.getFileInData(args[0]);
+        String absolutePath = file.getAbsolutePath().replace("\\", "/");
         if (!file.exists()){
             player.sendMessage("§cFile not found!");
+            return true;
+        }
+        if (!absolutePath.contains(Config.getPluginDataPath())){
+            player.sendMessage("§cYou can't access files outside of data folder!");
+            System.out.println("[BookAndStorage] Player " + player.getName() + " tried to access files outside of data folder!");
             return true;
         }
 
