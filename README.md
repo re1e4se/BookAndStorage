@@ -21,7 +21,7 @@ Currently there aren't any known issues.
 ## Planned Features
 - Storing up to 7,992 KB (approximately 8 MB) of data by filling up the whole inventory with shulker boxes that contain chunks of data.
 - Limiting data usage for books.
-- Changing whether to give player Book and Quill or Written Book.
+- Changing whether to give player Book and Quill or Written Book from the config file.
 
 ## Limitations
 - You can only store up to 8 KB files.
