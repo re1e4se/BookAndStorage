@@ -8,7 +8,12 @@ public final class BookAndStorage extends JavaPlugin {
     @Override
     public void onEnable() {
         System.out.println("[BookAndStorage] Welcome! Enabling BookAndStorage...");
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
         Config.setup();
+        Config.get().addDefault("clearInventory", false);
+        Config.get().addDefault("splitBooks", true);
         Config.get().options().copyDefaults(true);
         Config.save();
         getCommand("createdata").setExecutor(new CreateDataCommand());

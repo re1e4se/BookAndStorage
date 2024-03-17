@@ -11,6 +11,7 @@ Currently there aren't any known issues.
 
 ## Features
 - **Data Storage**: Store various types of data in books, such as text, images, small videos, even more!
+- **Book Splitting**: Split bigger data to chunks of books! Currently, you can't get more than 36 books of data since books are placed into your inventory. If you try to create data worth more than 36 books (approximately 288 KB), you will not receive the rest of the data.
 - **Ease of Use**: You can easily create books with one command or write a content of a book to an actual file!
 - **Compatibility**: Compatible with Minecraft version 1.14+ due to increased page sizes of the books.
 > [!NOTE]
@@ -18,7 +19,7 @@ Currently there aren't any known issues.
 - **Performance**: I've tested the plugin on a 1.16.5 server with only 1 GB of RAM allocated with no other plugins and while creating 36 books that contain 8 KB data each, TPS was stable 20 all the time.
 
 ## Planned Features
-- Storing up to 7,992 KB (approximately 8 MB) of data by filling up the whole inventory with chunks of data.
+- Storing up to 7,992 KB (approximately 8 MB) of data by filling up the whole inventory with shulker boxes that contain chunks of data.
 - Limiting data usage for books.
 - Changing whether to give player Book and Quill or Written Book.
 
@@ -47,17 +48,5 @@ To build the plugin for versions below 1.14, you can follow the following steps:
 ```
 3. Change book page limit in `CreateDataCommand.java` to avoid any errors that might occur when creating a book that has more than 50 pages (approximately 4 KB) data in it to `50`. It should look like following:
 ```java
-if (chunks.length <= 50){
-  ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-
-  BookMeta meta = (BookMeta)book.getItemMeta();
-  meta.setTitle(args[0]);
-  meta.setAuthor("BookAndStorage");
-  for (String chunk : chunks){
-    meta.addPage(chunk);
-  }
-
-  book.setItemMeta(meta);
-  player.getInventory().addItem(book);
-}
+int bookPageSize = 50;
 ```

@@ -36,7 +36,6 @@ public class WriteDataCommand implements CommandExecutor {
             StringBuilder stringBuilder = new StringBuilder();
             for (String page : meta.getPages()){
                 String hex = page.replace(" ", "");
-                player.sendMessage(hex);
                 if ((!HexValidator.isValidHex(hex))){
                     player.sendMessage("§cOne of the book's pages is not a valid hexadecimal string!");
                     return true;

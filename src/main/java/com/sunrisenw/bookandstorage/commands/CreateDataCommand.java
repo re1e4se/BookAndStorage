@@ -12,6 +12,9 @@ import org.bukkit.inventory.meta.BookMeta;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CreateDataCommand implements CommandExecutor {
     @Override
@@ -54,21 +57,63 @@ public class CreateDataCommand implements CommandExecutor {
         String hexString = hexBuilder.toString();
         String[] chunks = splitStringIntoChunks(hexString, 256);
 
-        if (chunks.length <= 100){
+        int bookPageSize = 100;
+
+        if (!Config.get().getBoolean("splitBooks")) {
+            if (chunks.length > bookPageSize){
+                player.sendMessage("§cThe file you provided is too big to fit into a single book! If you want to store bigger files, change splitBooks option on config to true.");
+                return true;
+            }
             ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
 
-            BookMeta meta = (BookMeta)book.getItemMeta();
+            BookMeta meta = (BookMeta) book.getItemMeta();
             meta.setTitle(args[0]);
             meta.setAuthor("BookAndStorage");
-            for (String chunk : chunks){
+            for (String chunk : chunks) {
                 meta.addPage(chunk);
             }
 
             book.setItemMeta(meta);
             player.getInventory().addItem(book);
+            return true;
+        }
+
+        List<String[]> bookChunks = chunkArray(chunks, bookPageSize);
+        int part = 0;
+        for (String[] chunk : bookChunks){
+            if (Config.get().getBoolean("clearInventory"))
+                player.getInventory().clear();
+
+            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+
+            BookMeta meta = (BookMeta)book.getItemMeta();
+            meta.setTitle(args[0] + "." + part);
+            meta.setAuthor("BookAndStorage");
+            for (String c : bookChunks.get(part)){
+                meta.addPage(c);
+            }
+
+            book.setItemMeta(meta);
+            player.getInventory().addItem(book);
+            part++;
         }
 
         return true;
+    }
+
+    public static List<String[]> chunkArray(String[] array, int chunkSize){
+        List<String[]> chunkedArrays = new ArrayList<>();
+
+        int numChunks = (array.length + chunkSize - 1) / chunkSize;
+
+        for (int i = 0; i < numChunks; i++) {
+            int start = i * chunkSize;
+            int end = Math.min(start + chunkSize, array.length);
+            String[] chunk = Arrays.copyOfRange(array, start, end);
+            chunkedArrays.add(chunk);
+        }
+
+        return chunkedArrays;
     }
 
     private static String[] splitStringIntoChunks(String str, int chunkSize) {
