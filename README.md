@@ -32,10 +32,16 @@ To get started with the plugin, simply install it to your server by downloading 
 
 ## Building for Versions Below 1.14
 Do you need to run the plugin on versions below 1.14? No worries, you can still do that. Since I've started developing the plugin for 1.12 and switched to 1.14 because of increased book page limit, the plugin is fully compatible with 1.12.
+> [!NOTE]
+> To build from the stable release, you need to build the project from the `stable` directory.
 
 To build the plugin for versions below 1.14, you can follow the following steps:
-1. Change `api-version` in `spigot.yml` file which is located at `/src/main/resources` to your target version such as `1.12`
-2. Change dependency version in `pom.xml` file which is located at the root folder of the project to your target dependency version such as `1.12-R0.1-SNAPSHOT` It should look like following:
+1. Clone the repository:
+```
+git clone https://github.com/re1e4se/BookAndStorage.git
+```
+2. Change `api-version` in `spigot.yml` file which is located at `/src/main/resources` to your target version such as `1.12`
+3. Change dependency version in `pom.xml` file which is located at the root folder of the project to your target dependency version such as `1.12-R0.1-SNAPSHOT` It should look like following:
 ```xml
 <dependencies>
   <dependency>
@@ -46,7 +52,7 @@ To build the plugin for versions below 1.14, you can follow the following steps:
   </dependency>
 </dependencies>
 ```
-3. Change book page limit in `CreateDataCommand.java` to avoid any errors that might occur when creating a book that has more than 50 pages (approximately 4 KB) data in it to `50`. It should look like following:
+4. Change book page limit in `CreateDataCommand.java` to avoid any errors that might occur when creating a book that has more than 50 pages (approximately 4 KB) data in it to `50`. It should look like following:
 ```java
 int bookPageSize = 50;
 ```
