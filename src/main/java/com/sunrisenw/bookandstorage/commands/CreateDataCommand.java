@@ -1,6 +1,7 @@
 package com.sunrisenw.bookandstorage.commands;
 
 import com.sunrisenw.bookandstorage.Config;
+import com.sunrisenw.bookandstorage.utils.Inventory;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -57,18 +58,18 @@ public class CreateDataCommand implements CommandExecutor {
         String hexString = hexBuilder.toString();
         String[] chunks = splitStringIntoChunks(hexString, 256);
 
-        int bookPageSize = 100;
+        int bookPageSize = Config.get().getInt("bookPageLimit");
+
+        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta meta = (BookMeta) book.getItemMeta();
+        meta.setAuthor("BookAndStorage");
 
         if (!Config.get().getBoolean("splitBooks")) {
             if (chunks.length > bookPageSize){
                 player.sendMessage("§cThe file you provided is too big to fit into a single book! If you want to store bigger files, change splitBooks option on config to true.");
                 return true;
             }
-            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-
-            BookMeta meta = (BookMeta) book.getItemMeta();
             meta.setTitle(args[0]);
-            meta.setAuthor("BookAndStorage");
             for (String chunk : chunks) {
                 meta.addPage(chunk);
             }
@@ -80,36 +81,47 @@ public class CreateDataCommand implements CommandExecutor {
 
         List<String[]> bookChunks = chunkArray(chunks, bookPageSize);
         int part = 0;
-        for (String[] chunk : bookChunks){
-            if (Config.get().getBoolean("clearInventory"))
-                player.getInventory().clear();
+        int inventorySize = Config.get().getInt("inventorySize");
+        if (!Config.get().getBoolean("useShulkers")) {
+            if (bookChunks.size() > inventorySize){
+                player.sendMessage("§cThe file you provided can't be fit into your inventory! If you want to store bigger files, change useShulkers option to true or increase the inventorySize on config.");
+                return true;
+            }
+            for (String[] chunk : bookChunks) {
+                if (Config.get().getBoolean("clearInventory") && Inventory.getAvailableSpace(player) > bookChunks.size())
+                    player.getInventory().clear();
 
-            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+                if (Inventory.getAvailableSpace(player) > bookChunks.size()){
+                    player.sendMessage("§cYou don't have enough space in your inventory to receive this file! Clear your inventory.");
+                    return true;
+                }
 
-            BookMeta meta = (BookMeta)book.getItemMeta();
-            meta.setTitle(args[0] + "." + part);
-            meta.setAuthor("BookAndStorage");
-            for (String c : bookChunks.get(part)){
-                meta.addPage(c);
+                meta.setTitle(args[0] + "." + part);
+
+                for (String c : bookChunks.get(part)) {
+                    meta.addPage(c);
+                }
+
+                book.setItemMeta(meta);
+                player.getInventory().addItem(book);
+                part++;
             }
 
-            book.setItemMeta(meta);
-            player.getInventory().addItem(book);
-            part++;
+            return true;
         }
 
         return true;
     }
 
-    public static List<String[]> chunkArray(String[] array, int chunkSize){
-        List<String[]> chunkedArrays = new ArrayList<>();
+    private static <T> List<T[]> chunkArray(T[] array, int chunkSize) {
+        List<T[]> chunkedArrays = new ArrayList<>();
 
         int numChunks = (array.length + chunkSize - 1) / chunkSize;
 
         for (int i = 0; i < numChunks; i++) {
             int start = i * chunkSize;
             int end = Math.min(start + chunkSize, array.length);
-            String[] chunk = Arrays.copyOfRange(array, start, end);
+            T[] chunk = Arrays.copyOfRange(array, start, end);
             chunkedArrays.add(chunk);
         }
 

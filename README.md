@@ -2,6 +2,7 @@
 BookAndStorage is a Spigot Plugin that I made for fun that lets you store data in Minecraft books.
 > [!NOTE]
 > There might be bugs, issues etc. that I haven't found out yet. If you find any bugs, feel free to open an issue.
+> To get the stable release, you can either use the codebase on stable folder or download the stable jar from releases tab.
 
 ## Introduction
 Aren't you tired of using Book and Quills for just storing simple things like some text of what you did in your world? If your answer is yes, then BookAndStorage changes that! You can store everything that comes to your mind in books!
@@ -52,7 +53,7 @@ git clone https://github.com/re1e4se/BookAndStorage.git
   </dependency>
 </dependencies>
 ```
-4. Change book page limit in `CreateDataCommand.java` to avoid any errors that might occur when creating a book that has more than 50 pages (approximately 4 KB) data in it to `50`. It should look like following:
-```java
-int bookPageSize = 50;
+4. Change book page limit in `config.yml` to avoid any errors that might occur when creating a book that has more than 50 pages (approximately 4 KB) data in it to `50`. It should look like following:
+```yml
+bookPageLimit: 50
 ```

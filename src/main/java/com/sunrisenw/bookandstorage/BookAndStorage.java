@@ -14,6 +14,10 @@ public final class BookAndStorage extends JavaPlugin {
         Config.setup();
         Config.get().addDefault("clearInventory", false);
         Config.get().addDefault("splitBooks", true);
+        Config.get().addDefault("useShulkers", true);
+
+        Config.get().addDefault("bookPageLimit", 100);
+        Config.get().addDefault("inventorySize", true);
         Config.get().options().copyDefaults(true);
         Config.save();
         getCommand("createdata").setExecutor(new CreateDataCommand());
