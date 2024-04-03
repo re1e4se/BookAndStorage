@@ -2,6 +2,7 @@
 BookAndStorage is a Spigot Plugin that I made for fun that lets you store data in Minecraft books.
 > [!NOTE]
 > There might be bugs, issues etc. that I haven't found out yet. If you find any bugs, feel free to open an issue.
+> 
 > To get the stable release, you can either use the codebase on stable folder or download the stable jar from releases tab.
 
 ## Introduction
