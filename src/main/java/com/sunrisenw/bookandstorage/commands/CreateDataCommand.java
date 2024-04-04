@@ -128,6 +128,18 @@ public class CreateDataCommand implements CommandExecutor {
         return chunkedArrays;
     }
 
+    // This will be soon used for chunking books to shulkers.
+    private static <T> List<List<T[]>> chunkList(List<T[]> originalList, int chunkSize) {
+        List<List<T[]>> chunkedLists = new ArrayList<>();
+
+        for (int i = 0; i < originalList.size(); i += chunkSize) {
+            int endIndex = Math.min(i + chunkSize, originalList.size());
+            chunkedLists.add(originalList.subList(i, endIndex));
+        }
+
+        return chunkedLists;
+    }
+
     private static String[] splitStringIntoChunks(String str, int chunkSize) {
         int len = str.length();
         int numOfChunks = (len + chunkSize - 1) / chunkSize;
