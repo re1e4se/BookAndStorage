@@ -34,7 +34,7 @@ To get started with the plugin, simply install it to your server by downloading 
 
 ## Building for Versions Below 1.14
 Do you need to run the plugin on versions below 1.14? No worries, you can still do that. Since I've started developing the plugin for 1.12 and switched to 1.14 because of increased book page limit, the plugin is fully compatible with 1.12.
-> [!NOTE]
+> [!IMPORTANT]
 > To build from the stable release, you need to build the project from the `stable` directory.
 
 To build the plugin for versions below 1.14, you can follow the following steps:
